@@ -15,3 +15,11 @@ test("should return 3 for string pwwkew", () => {
 test("should return 6 for string abcdef", () => {
   expect(lengthOfLongestSubstring("abcdef")).toBe(6);
 });
+
+test("should return 2 for string aab", () => {
+  expect(lengthOfLongestSubstring("aab")).toBe(2);
+});
+
+test("should return 3 for string dvdf", () => {
+  expect(lengthOfLongestSubstring("dvdf")).toBe(3);
+});

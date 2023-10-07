@@ -1,18 +1,18 @@
 export function lengthOfLongestSubstring(s: string): number {
-  let solution = "";
-  let longestSubstring = -1;
+  let solution = new Map<string, boolean>();
+  let longestSubstring = 0;
+
   s.split("").forEach((character) => {
-    if (!solution.includes(character)) {
-      solution += character;
+    if (!solution.has(character)) {
+      solution.set(character, true);
     } else {
-      if (longestSubstring < solution.length) {
-        longestSubstring = solution.length;
+      if (longestSubstring < solution.size) {
+        longestSubstring = solution.size;
       }
-      solution = character;
+      solution = new Map<string, boolean>();
+      solution.set(character, true);
     }
   });
 
-  return longestSubstring;
+  return longestSubstring || solution.size;
 }
-
-console.log(lengthOfLongestSubstring("abcabcbb"));

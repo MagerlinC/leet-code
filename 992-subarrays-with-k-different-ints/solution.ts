@@ -1,3 +1,21 @@
+const memoMap = new Map<string, number[][]>();
+
+const arrayToKey = (nums: number[], size: number) =>
+  size.toString() + nums.join(",");
+
+const memoizedGetSubArraysOfSize = (nums: number[], size: number) => {
+  const key = arrayToKey(nums, size);
+  const memoizedValue = memoMap.get(key);
+  if (memoizedValue) {
+    console.log(`Memoized utilized for sub-arrays of ${size}`);
+    return memoizedValue;
+  } else {
+    const res = getSubArraysOfSize(nums, size);
+    memoMap.set(key, res);
+    return res;
+  }
+};
+
 const getSubArraysOfSize = (nums: number[], size: number) => {
   if (size === nums.length) {
     return [nums];
@@ -12,7 +30,7 @@ const getSubArraysOfSize = (nums: number[], size: number) => {
 export function subarraysWithKDistinct(nums: number[], k: number): number {
   let solutions: number[][] = [];
   for (let i = k; i <= nums.length; i++) {
-    const curSubArrays = getSubArraysOfSize(nums, i);
+    const curSubArrays = memoizedGetSubArraysOfSize(nums, i);
     const validSubArrs = curSubArrays.filter(
       (subArr) => new Set(subArr).size === k
     );

@@ -15,7 +15,7 @@ test("should return 10 for input [2,1,2,1,2]", () => {
   expect(subarraysWithKDistinct(input, 2)).toBe(10);
 });
 
-test.skip("should handle big input", () => {
+test("should handle big input", () => {
   const input = [
     2690, 798, 5800, 94, 2066, 8611, 5951, 4576, 5884, 6357, 3937, 2533, 3518,
     3237, 1959, 6006, 1851, 6262, 7148, 8002, 8939, 5855, 6370, 8250, 1766,

@@ -1,42 +1,27 @@
-const palindromeMap = new Map<string, boolean>();
-
-const isPalindrome = (s: string) => {
-  let lo = 0;
-  let hi = s.length - 1;
-  while (lo < hi) {
-    if (s[lo] !== s[hi]) {
-      return false;
-    }
-    lo++;
-    hi--;
-  }
-  return true;
-};
-
-const memoizedIsPalindrome = (s: string) => {
-  if (palindromeMap.has(s)) {
-    return palindromeMap.get(s);
-  } else {
-    const isPal = isPalindrome(s);
-    palindromeMap.set(s, isPal);
-    return isPalindrome;
-  }
-};
-
 export function longestPalindrome(s: string): string {
-  let bestSolution = "";
-  const chars = s.split("");
-  for (let i = 0; i < chars.length; i++) {
-    let currentString = "";
-    for (let j = i; j < chars.length; j++) {
-      currentString += chars[j];
-      if (
-        currentString.length > bestSolution.length &&
-        memoizedIsPalindrome(currentString)
-      ) {
-        bestSolution = currentString;
-      }
+  let longestPalindrome = "";
+
+  for (let i = 0; i < s.length; i++) {
+    let currentPalindrome = s[i];
+    let right = 1;
+    while (s[i] === s[i + right]) {
+      currentPalindrome = s.substring(i, i + right + 1);
+      right += 1;
+    }
+    let left = 1;
+    while (
+      i - left >= 0 &&
+      i + right < s.length &&
+      s[i - left] === s[i + right]
+    ) {
+      currentPalindrome = s.substring(i - left, i + right + 1);
+      left++;
+      right++;
+    }
+    if (currentPalindrome.length >= longestPalindrome.length) {
+      longestPalindrome = currentPalindrome;
     }
   }
-  return bestSolution;
+
+  return longestPalindrome;
 }
